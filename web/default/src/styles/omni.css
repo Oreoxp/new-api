@@ -1,0 +1,212 @@
+/*
+Copyright (C) 2023-2026 QuantumNous
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
+
+/*
+ * OmniAPI Design System — "Controlled Velocity"
+ * --------------------------------------------------------------------------
+ * F1 telemetry × top-tier infrastructure. A single, dark visual language.
+ *
+ * Tokens are prefixed `--om-*` and classes/keyframes `om-*` so this file is
+ * safe to import globally without colliding with the existing Tailwind theme
+ * (which other pages still use). The landing page wraps itself in `.om-root`
+ * to force this one style regardless of the app's light/dark setting.
+ *
+ * Fonts (Archivo + JetBrains Mono) are loaded via <link> in index.html, with
+ * system fallbacks below so the page degrades gracefully if the web font CDN
+ * is unreachable.
+ */
+
+:root {
+  /* Core palette */
+  --om-accent: #cdff4e; /* Acid Lime — the only highlight color */
+  --om-accent-ink: #06070a; /* text on lime surfaces */
+  --om-bg: #06070a; /* cold near-black canvas */
+  --om-panel: #0f1116; /* panel base */
+
+  /* Text scale */
+  --om-text-strong: #f4f6f8; /* headings */
+  --om-text: #eceef0; /* default foreground / high-contrast body */
+  --om-text-2: #9aa1ab; /* secondary body */
+  --om-text-muted: #888f99; /* muted */
+  --om-text-faint: #5b626d; /* faint labels / mono micro-caps */
+
+  /* Accents for depth + state */
+  --om-depth-blue: #1a3468; /* screen-01 mesh depth */
+  --om-depth-blue-2: #1c3462;
+  --om-danger: #ff7a7a; /* DON'T / error text only */
+
+  /* Transparent border ladder (built on the dark base) */
+  --om-border-weak: rgba(255, 255, 255, 0.06);
+  --om-border-mid: rgba(255, 255, 255, 0.12);
+  --om-border-strong: rgba(255, 255, 255, 0.16);
+  --om-border-accent: rgba(205, 255, 78, 0.4);
+  --om-panel-glass: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.01)
+  );
+
+  /* Radius */
+  --om-radius-btn: 8px; /* buttons / tags: 7–9px */
+  --om-radius-input: 10px; /* inputs */
+  --om-radius-panel: 15px; /* cards / panels: 14–16px */
+
+  /* Shadow / glow — used sparingly */
+  --om-shadow-cta:
+    0 0 0 1px rgba(205, 255, 78, 0.4), 0 10px 40px -10px rgba(205, 255, 78, 0.5);
+  --om-shadow-cta-lg:
+    0 0 0 1px rgba(205, 255, 78, 0.4),
+    0 14px 50px -10px rgba(205, 255, 78, 0.55);
+  --om-glow-dot: 0 0 8px #cdff4e;
+
+  /* Motion — precise, weighty, never bouncy */
+  --om-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Type families */
+  --om-font-display:
+    'Archivo', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+  --om-font-mono:
+    'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas',
+    monospace;
+  --om-font-body:
+    system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+}
+
+/*
+ * Root scope — forces the single dark style for the landing page, isolated
+ * from the global theme tokens used elsewhere in the app.
+ */
+.om-root {
+  background: var(--om-bg);
+  color: var(--om-text);
+  color-scheme: dark;
+  font-family: var(--om-font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* `clip` (not `hidden`) prevents horizontal overflow WITHOUT creating a
+   * scroll container — otherwise it would break `position: sticky` on
+   * descendants like the docs sidebar. */
+  overflow-x: clip;
+}
+.om-root ::selection {
+  background: var(--om-accent);
+  color: var(--om-accent-ink);
+}
+
+/* Font helpers */
+.om-mono {
+  font-family: var(--om-font-mono);
+}
+.om-display {
+  font-family: var(--om-font-display);
+}
+
+/* ---- Keyframes ---- */
+@keyframes om-tick {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes om-ring-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes om-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes om-scroll-dot {
+  0% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(8px);
+    opacity: 0.4;
+  }
+}
+@keyframes om-hero-in {
+  from {
+    opacity: 0.2;
+    transform: translateX(-3.4vw) skewX(-6deg);
+    filter: blur(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/*
+ * Scroll reveal — IntersectionObserver toggles `.is-in` (see useReveal).
+ * Standard transition approach (per design handoff: NOT the per-frame rAF
+ * hack used by the prototype).
+ */
+.om-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.9s var(--om-ease),
+    transform 0.9s var(--om-ease);
+  will-change: opacity, transform;
+}
+.om-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* One-shot kinetic entrance for the hero wordmark. */
+.om-hero-in {
+  animation: om-hero-in 0.92s var(--om-ease) both;
+}
+
+/* Respect reduced-motion: show everything, kill looping/entrance animation. */
+@media (prefers-reduced-motion: reduce) {
+  .om-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .om-hero-in {
+    animation: none;
+  }
+  .om-root [class*='animate-[om-'] {
+    animation: none !important;
+  }
+}

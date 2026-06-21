@@ -16,18 +16,4 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-/// <reference types="@rsbuild/core/types" />
-
-// Markdown files are imported as raw strings (rspack `asset/source`).
-declare module '*.md' {
-  const content: string
-  export default content
-}
-
-declare module '@visactor/react-vchart' {
-  export const VChart: React.ComponentType<Record<string, unknown>>
-}
-
-declare module '@visactor/vchart-semi-theme' {
-  export const initVChartSemiTheme: (opts?: Record<string, unknown>) => void
-}
+export { OmniHome } from './omni-home'

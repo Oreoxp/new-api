@@ -20,9 +20,17 @@ import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/stores/auth-store'
 import { Markdown } from '@/components/ui/markdown'
 import { PublicLayout } from '@/components/layout'
-import { Footer } from '@/components/layout/components/footer'
-import { CTA, Features, Hero, HowItWorks, Stats } from './components'
+import { OmniHome } from './components/omni'
 import { useHomePageContent } from './hooks'
+// OmniAPI design tokens — also needed by the dark loading state below.
+import '@/styles/omni.css'
+
+// ── Legacy default landing building blocks (preserved, not deleted) ──────────
+// The redesign swaps the visual style but the old marketing sections may still
+// be reused later. Re-enable these imports + the legacy return block below to
+// restore the previous landing page.
+// import { Footer } from '@/components/layout/components/footer'
+// import { CTA, Features, Hero, HowItWorks, Stats } from './components'
 
 export function Home() {
   const { t } = useTranslation()
@@ -31,15 +39,20 @@ export function Home() {
   const { content, isLoaded, isUrl } = useHomePageContent()
 
   if (!isLoaded) {
+    // Dark loader, styled with the OmniAPI tokens, so there's no light flash
+    // before the landing page mounts.
     return (
-      <PublicLayout showMainContainer={false}>
-        <main className='flex min-h-screen items-center justify-center'>
-          <div className='text-muted-foreground'>{t('Loading...')}</div>
-        </main>
-      </PublicLayout>
+      <div className='om-root flex min-h-svh items-center justify-center'>
+        <div className='om-mono text-[13px] tracking-[0.18em] text-[var(--om-text-faint)]'>
+          {t('Loading...')}
+        </div>
+      </div>
     )
   }
 
+  // Custom home page content configured in System Settings (Markdown/HTML, or
+  // an iframe URL) still takes precedence — behavior unchanged, kept on the
+  // shared public layout.
   if (content) {
     return (
       <PublicLayout showMainContainer={false}>
@@ -60,14 +73,20 @@ export function Home() {
     )
   }
 
-  return (
-    <PublicLayout showMainContainer={false}>
-      <Hero isAuthenticated={isAuthenticated} />
-      <Stats />
-      <Features />
-      <HowItWorks />
-      <CTA isAuthenticated={isAuthenticated} />
-      <Footer />
-    </PublicLayout>
-  )
+  // Default landing: the OmniAPI "Controlled Velocity" redesign.
+  return <OmniHome isAuthenticated={isAuthenticated} />
+
+  /*
+   * ── Previous default landing (kept for reference / reuse) ──────────────────
+   * return (
+   *   <PublicLayout showMainContainer={false}>
+   *     <Hero isAuthenticated={isAuthenticated} />
+   *     <Stats />
+   *     <Features />
+   *     <HowItWorks />
+   *     <CTA isAuthenticated={isAuthenticated} />
+   *     <Footer />
+   *   </PublicLayout>
+   * )
+   */
 }

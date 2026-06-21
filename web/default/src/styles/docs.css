@@ -1,0 +1,165 @@
+/*
+Copyright (C) 2023-2026 QuantumNous
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
+
+/*
+ * Markdown styling for the docs pages (`.om-doc-content`). The app does not
+ * ship @tailwindcss/typography, so prose is styled explicitly here using the
+ * OmniAPI dark tokens from omni.css.
+ */
+.om-doc-content {
+  color: var(--om-text-2);
+  font-size: 15px;
+  line-height: 1.75;
+}
+.om-doc-content > *:first-child {
+  margin-top: 0;
+}
+
+.om-doc-content h1 {
+  font-family: var(--om-font-display);
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--om-text-strong);
+  margin: 0 0 18px;
+}
+.om-doc-content h2 {
+  font-family: var(--om-font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--om-text-strong);
+  margin: 38px 0 14px;
+}
+.om-doc-content h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--om-text);
+  margin: 26px 0 10px;
+}
+/* Offset anchor jumps so headings land below the fixed top nav. */
+.om-doc-content :is(h1, h2, h3) {
+  scroll-margin-top: 96px;
+}
+.om-doc-content p {
+  margin: 12px 0;
+}
+.om-doc-content strong {
+  color: var(--om-text);
+  font-weight: 700;
+}
+.om-doc-content a {
+  color: var(--om-accent);
+  text-decoration: none;
+}
+.om-doc-content a:hover {
+  text-decoration: underline;
+}
+
+.om-doc-content ul,
+.om-doc-content ol {
+  margin: 12px 0;
+  padding-left: 1.4em;
+}
+.om-doc-content li {
+  margin: 6px 0;
+}
+.om-doc-content li::marker {
+  color: var(--om-text-faint);
+}
+
+.om-doc-content code {
+  font-family: var(--om-font-mono);
+  font-size: 0.88em;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--om-border-weak);
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  color: #dfe5ea;
+}
+.om-doc-content pre {
+  background: var(--om-panel);
+  border: 1px solid var(--om-border-weak);
+  border-radius: var(--om-radius-panel);
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.om-doc-content pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #dfe5ea;
+}
+
+.om-doc-content blockquote {
+  margin: 16px 0;
+  padding: 10px 16px;
+  border-left: 2px solid var(--om-accent);
+  background: rgba(205, 255, 78, 0.05);
+  border-radius: 0 8px 8px 0;
+  color: var(--om-text-2);
+}
+.om-doc-content blockquote p {
+  margin: 4px 0;
+}
+
+.om-doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 14px;
+}
+.om-doc-content th,
+.om-doc-content td {
+  border: 1px solid var(--om-border-mid);
+  padding: 9px 12px;
+  text-align: left;
+}
+.om-doc-content th {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--om-text);
+  font-weight: 600;
+}
+
+.om-doc-content hr {
+  border: none;
+  border-top: 1px solid var(--om-border-weak);
+  margin: 30px 0;
+}
+
+/* Image placeholder used in docs until real screenshots are added. */
+.om-doc-content .doc-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  margin: 18px 0;
+  padding: 20px;
+  border: 1px dashed var(--om-border-mid);
+  border-radius: var(--om-radius-panel);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--om-text-faint);
+  font-family: var(--om-font-mono);
+  font-size: 13px;
+  text-align: center;
+}

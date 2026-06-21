@@ -89,15 +89,18 @@ export default defineConfig(({ envMode }) => {
       },
     },
     tools: {
-      rspack: {
-        plugins: [
+      rspack: (_config, { appendPlugins, addRules }) => {
+        appendPlugins(
           tanstackRouter({
             target: 'react',
             // Dev: avoid per-route async chunks (reduces white flash on navigation + faster HMR feedback).
             // Prod: keep route-based code splitting.
             autoCodeSplitting: isProd,
-          }),
-        ],
+          })
+        )
+        // Import .md files as raw strings so docs pages can be authored as
+        // plain Markdown (see src/features/docs).
+        addRules([{ test: /\.md$/, type: 'asset/source' }])
       },
     },
   }

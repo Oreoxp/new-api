@@ -1,0 +1,92 @@
+/*
+Copyright (C) 2023-2026 QuantumNous
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
+
+/*
+ * OmniAPI global theme — "Controlled Velocity".
+ * --------------------------------------------------------------------------
+ * Remaps the shared design tokens (consumed by every shadcn/Base UI component
+ * via Tailwind's `bg-background`, `text-foreground`, `border-border`, …) to the
+ * OmniAPI dark + acid-lime palette. Loaded after theme.css / theme-presets.css
+ * so it wins for the default (no `data-theme-preset`) configuration.
+ *
+ * Applied to BOTH `:root` and `.dark` so the app is one dark style regardless
+ * of the light/dark toggle. The bespoke landing page keeps its own `--om-*`
+ * scope (src/styles/omni.css) and is unaffected.
+ */
+:root,
+.dark {
+  --background: #06070a;
+  --foreground: #eceef0;
+
+  --card: #0f1116;
+  --card-foreground: #eceef0;
+
+  /* Slightly lifted so popovers / dropdowns read as elevated surfaces. */
+  --popover: #111419;
+  --popover-foreground: #eceef0;
+
+  /* Acid lime is the single highlight — primary actions, active states. */
+  --primary: #cdff4e;
+  --primary-foreground: #06070a;
+
+  --secondary: #1a1e26;
+  --secondary-foreground: #eceef0;
+
+  --muted: #15181f;
+  --muted-foreground: #9aa1ab;
+
+  /* Neutral elevated surface used for hover/active (menu items, toggles). */
+  --accent: #1c2129;
+  --accent-foreground: #f4f6f8;
+
+  --destructive: #ff7a7a;
+  --destructive-foreground: #06070a;
+
+  /* Lime doubles as the "nominal / healthy" status color. */
+  --success: #cdff4e;
+  --success-foreground: #06070a;
+  --warning: #f5c451;
+  --warning-foreground: #06070a;
+  --info: #6aa8ff;
+  --info-foreground: #06070a;
+  --neutral: #9aa1ab;
+  --neutral-foreground: #06070a;
+
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: #cdff4e;
+
+  --chart-1: #cdff4e;
+  --chart-2: #5ea9ff;
+  --chart-3: #b48cff;
+  --chart-4: #f5c451;
+  --chart-5: #4fd6b8;
+
+  --sidebar: #08090c;
+  --sidebar-foreground: #d7dbe0;
+  --sidebar-primary: #cdff4e;
+  --sidebar-primary-foreground: #06070a;
+  --sidebar-accent: #16191f;
+  --sidebar-accent-foreground: #f4f6f8;
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: #cdff4e;
+
+  --skeleton-base: #15181f;
+  --skeleton-highlight: #20242d;
+}

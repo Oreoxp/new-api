@@ -16,18 +16,14 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-/// <reference types="@rsbuild/core/types" />
+import { createFileRoute } from '@tanstack/react-router'
+import { DocsPage } from '@/features/docs'
 
-// Markdown files are imported as raw strings (rspack `asset/source`).
-declare module '*.md' {
-  const content: string
-  export default content
-}
+export const Route = createFileRoute('/docs/$slug')({
+  component: DocsSlugPage,
+})
 
-declare module '@visactor/react-vchart' {
-  export const VChart: React.ComponentType<Record<string, unknown>>
-}
-
-declare module '@visactor/vchart-semi-theme' {
-  export const initVChartSemiTheme: (opts?: Record<string, unknown>) => void
+function DocsSlugPage() {
+  const { slug } = Route.useParams()
+  return <DocsPage slug={slug} />
 }

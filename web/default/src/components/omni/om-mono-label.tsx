@@ -16,18 +16,27 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-/// <reference types="@rsbuild/core/types" />
+import { cn } from '@/lib/utils'
 
-// Markdown files are imported as raw strings (rspack `asset/source`).
-declare module '*.md' {
-  const content: string
-  export default content
-}
-
-declare module '@visactor/react-vchart' {
-  export const VChart: React.ComponentType<Record<string, unknown>>
-}
-
-declare module '@visactor/vchart-semi-theme' {
-  export const initVChartSemiTheme: (opts?: Record<string, unknown>) => void
+/**
+ * Mono micro-label (e.g. "// 01 — FRONTIER", "CONTROLLED VELOCITY"). Wide
+ * tracking, faint by default; `accent` paints it lime. These are technical
+ * readouts and stay English across locales by design.
+ */
+export function OmMonoLabel(props: {
+  accent?: boolean
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <span
+      className={cn(
+        'om-mono text-[12px] tracking-[0.18em]',
+        props.accent ? 'text-[var(--om-accent)]' : 'text-[var(--om-text-faint)]',
+        props.className
+      )}
+    >
+      {props.children}
+    </span>
+  )
 }
