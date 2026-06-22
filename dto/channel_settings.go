@@ -98,12 +98,25 @@ func (c *AdvancedCustomConfig) MatchPath(requestPath string) (AdvancedCustomRout
 	if c == nil {
 		return AdvancedCustomRoute{}, false
 	}
+	requestPath = normalizeAdvancedCustomRequestPath(requestPath)
 	for _, route := range c.Routes {
 		if matchAdvancedCustomIncomingPath(strings.TrimSpace(route.IncomingPath), requestPath) {
 			return route, true
 		}
 	}
 	return AdvancedCustomRoute{}, false
+}
+
+// normalizeAdvancedCustomRequestPath maps internal relay path aliases to the public
+// path their request is semantically equivalent to, so Advanced Custom route matching
+// behaves the same for the built-in playground and for external clients. The built-in
+// playground posts to /pg/chat/completions but relays as an OpenAI chat completion, so
+// it must be matched against a /v1/chat/completions route rather than its internal path.
+func normalizeAdvancedCustomRequestPath(requestPath string) string {
+	if requestPath == "/pg/chat/completions" {
+		return "/v1/chat/completions"
+	}
+	return requestPath
 }
 
 // SupportsPath reports whether any route matches requestPath.
